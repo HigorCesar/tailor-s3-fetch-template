@@ -1,7 +1,7 @@
 'use strict'
-const s3 = require('./s3.js')
-
-//s3.createBucket('hello-world4').then(data => console.log(`Success: ${data}`)).catch(err => console.log(`Error: ${err}`));
-s3.getObjectContents('tailor-templates','hello.txt')
-.then(data => console.log(`Success: ${data}`))
-.catch(err => console.log(`Error: ${err}`));
+const s3FetchTemplate = require('./s3-fetch-template');
+const doNothing = () => 'default.html';
+const fetchTemplate = s3FetchTemplate('hello.html',doNothing);
+fetchTemplate({url:'http://localhost/hello.html'},x => x)
+.then(data => console.log(data))
+.catch(err => console.log(err))
