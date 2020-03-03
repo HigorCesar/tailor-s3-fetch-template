@@ -3,7 +3,6 @@ const fetchTemplate = require('../lib/fetch-template');
 const assert = require('assert');
 const sinon = require('sinon');
 const path = require('path');
-const fs = require('fs');
 const s3 = require('../lib/s3');
 require('dotenv').config()
 
@@ -15,23 +14,18 @@ describe('fetch-template', () => {
     const baseTemplatePath = path.join(templatePath, 'base-template.html');
     const testTemplatePath = path.join(templatePath, 'test.html');
 
-    before(() => {
-        console.log(`bucket=${bucket}`)
-        s3.createBucket(bucket)
-            .then(_ => {
-                s3.upload(bucket, baseTemplatePath, '<div>base-template</div>');
-                s3.upload(bucket, testTemplatePath, '<div>test</div>');
-            });
-
+    before(async () => {
+        await s3.createBucket(bucket);
+        await s3.upload(bucket, baseTemplatePath, '<div>base-template</div>');
+        await s3.upload(bucket, testTemplatePath, '<div>test</div>');
     });
 
     beforeEach(() => (mockParseTemplate = sinon.spy()));
 
-    after(() => {
-        Promise
-            .all([s3.deleteObject(bucket, baseTemplatePath), s3.deleteObject(bucket, testTemplatePath)])
-            .then(_ => s3.deleteBucket(bucket))
-            .catch(err => console.log(err));
+    after(async () => {
+        await s3.deleteObject(bucket, baseTemplatePath);
+        await s3.deleteObject(bucket, testTemplatePath);
+        await s3.deleteBucket(bucket);
     });
 
     afterEach(() => mockParseTemplate.reset());
@@ -65,6 +59,7 @@ describe('fetch-template', () => {
     describe('templatePath - Dir', () => {
         it('should fetch the template with absolute path when baseTemplateFn is falsy', () => {
             const baseTemplateFn = () => null;
+            console.log('xtemplatePath=' + templatePath);
             return fetchTemplate(templatePath, baseTemplateFn)(
                 mockRequest,
                 mockParseTemplate
