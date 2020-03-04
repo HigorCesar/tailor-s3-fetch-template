@@ -1,6 +1,6 @@
 # tailor-s3-fetch-template
 
-Implementation of tailor fetch-template for S3
+simple implementation of tailor fetch-template for S3
 
 ## Dependencies
 
@@ -13,4 +13,6 @@ Start localstack
 
 ```bash
 TMPDIR=/private$TMPDIR localstack start --docker
+cd tests
+mocha *
 ```
