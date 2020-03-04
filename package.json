@@ -1,0 +1,31 @@
+{
+  "name": "tailor-s3-fetch-template",
+  "version": "1.0.0-beta",
+  "description": "Simple Tailor implementation template fetching on top of S3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HigorCesar/tailor-s3-fetch-template.git"
+  },
+  "keywords": [
+    "tailor",
+    "s3"
+  ],
+  "author": "higor.crr@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HigorCesar/tailor-s3-fetch-template/issues"
+  },
+  "homepage": "https://github.com/HigorCesar/tailor-s3-fetch-template#readme",
+  "dependencies": {
+    "aws-sdk": "^2.630.0",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.0",
+    "sinon": "^2.3.4"
+  }
+}
