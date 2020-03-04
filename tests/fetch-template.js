@@ -59,7 +59,6 @@ describe('fetch-template', () => {
     describe('templatePath - Dir', () => {
         it('should fetch the template with absolute path when baseTemplateFn is falsy', () => {
             const baseTemplateFn = () => null;
-            console.log('xtemplatePath=' + templatePath);
             return fetchTemplate(templatePath, baseTemplateFn)(
                 mockRequest,
                 mockParseTemplate
